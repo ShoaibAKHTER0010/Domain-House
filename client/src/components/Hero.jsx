@@ -101,12 +101,12 @@ export function Hero() {
               Browse domains
             </motion.a>
             <motion.a
-              href="#refund"
+              href="#contact"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/15"
             >
-              Refund policy
+              Contact
             </motion.a>
           </motion.div>
 

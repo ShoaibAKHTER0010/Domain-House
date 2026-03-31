@@ -61,6 +61,17 @@ export function Navbar() {
           </li>
           <li>
             <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${base} ${isActive ? 'text-white' : ''}`
+              }
+            >
+              About
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-orange-500 transition-all duration-300 group-hover:w-full" />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/safety"
               className={({ isActive }) =>
                 `${base} ${isActive ? 'text-white' : ''}`

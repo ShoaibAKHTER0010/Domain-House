@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Layout } from './components/Layout'
 import { HomePage } from './pages/HomePage'
 import { SafetyPage } from './pages/SafetyPage'
+import { AboutPage } from './pages/AboutPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="safety" element={<SafetyPage />} />
+          <Route path="about" element={<AboutPage />} />
         </Route>
       </Routes>
     </motion.div>

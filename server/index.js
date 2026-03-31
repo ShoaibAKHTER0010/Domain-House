@@ -9,6 +9,8 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 3001
 
+const { checkDomainQuery } = require('./lib/domainAvailability')
+
 const domainsPath = path.join(__dirname, 'data', 'domains.json')
 
 function readDomains() {
@@ -65,6 +67,18 @@ app.delete('/api/domains/:id', (req, res) => {
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'domain-house-api' })
+})
+
+/** Public registry check + 50% off indicative offer (see lib/domainAvailability.js) */
+app.get('/api/check-domain', async (req, res) => {
+  const q = req.query.q || req.query.domain || ''
+  try {
+    const { status, body } = await checkDomainQuery(q)
+    res.status(status).json(body)
+  } catch (e) {
+    console.error(e)
+    res.status(500).json({ error: 'check_failed', message: String(e.message) })
+  }
 })
 
 app.use((req, res) => {

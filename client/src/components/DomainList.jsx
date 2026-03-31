@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useDomains } from '../hooks/useDomains'
+import { useDomainAvailability } from '../hooks/useDomainAvailability'
 import { DomainCard } from './DomainCard'
 import { DomainCardSkeleton } from './DomainCardSkeleton'
+import { DomainSearchInsight } from './DomainSearchInsight'
+import { DomainSaleCountdown } from './DomainSaleCountdown'
 
 /**
  * Domain grid with optional search, scroll reveals, and loading skeletons.
@@ -10,6 +13,7 @@ import { DomainCardSkeleton } from './DomainCardSkeleton'
 export function DomainList({ onBuy }) {
   const { domains, loading, error } = useDomains()
   const [query, setQuery] = useState('')
+  const availability = useDomainAvailability(query)
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -37,9 +41,15 @@ export function DomainList({ onBuy }) {
           Domains <span className="text-orange-500">in stock</span>
         </h2>
         <p className="mt-3 text-white/60">
-          Browse names curated for startups and creators. Search by keyword or
-          TLD.
+          Browse our inventory, or type a full domain (e.g.{' '}
+          <span className="text-white/80">mybrand.com</span>). We read the{' '}
+          <strong className="font-medium text-white/75">global registry</strong>{' '}
+          — if the name is free, it’s the same situation as “available” at
+          sellers like Hostinger or Wix (we don’t call their sites). Then we show{' '}
+          <strong className="font-medium text-orange-400/90">50% off</strong> our
+          Hostinger/Wix-style           reference price.
         </p>
+        <DomainSaleCountdown />
         <div className="mx-auto mt-8 max-w-md">
           <label htmlFor="domain-search" className="sr-only">
             Search domains
@@ -47,12 +57,18 @@ export function DomainList({ onBuy }) {
           <input
             id="domain-search"
             type="search"
-            placeholder="Search e.g. io, brand, dev..."
+            placeholder="Keywords, or myidea.com for availability…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none ring-orange-500/0 transition focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/30"
           />
         </div>
+        <DomainSearchInsight
+          result={availability.result}
+          loading={availability.loading}
+          error={availability.error}
+          onBuy={onBuy}
+        />
       </motion.div>
 
       {error && (
