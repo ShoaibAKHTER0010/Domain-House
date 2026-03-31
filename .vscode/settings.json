@@ -1,0 +1,5 @@
+{
+  "tailwindCSS.experimental.configFile": {
+    "client/src/index.css": "client/**"
+  }
+}

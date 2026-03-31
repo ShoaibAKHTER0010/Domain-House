@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+@import 'tailwindcss';
+@config '../tailwind.config.js';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply antialiased text-white bg-brand-dark;
+    font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  }
+}
+
+/* --- Global “live” mesh (always-moving background) --- */
+.bg-mesh-live {
+  background:
+    radial-gradient(ellipse 120% 80% at 20% 20%, rgba(255, 122, 0, 0.35), transparent 50%),
+    radial-gradient(ellipse 100% 70% at 80% 0%, rgba(59, 130, 246, 0.25), transparent 45%),
+    radial-gradient(ellipse 90% 60% at 50% 100%, rgba(139, 92, 246, 0.2), transparent 50%),
+    linear-gradient(180deg, #030712 0%, #0a1628 45%, #050a14 100%);
+  background-size: 200% 200%;
+  animation: mesh-shift 18s ease-in-out infinite;
+}
+
+@keyframes mesh-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.bg-grid-drift {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: grid-drift 32s linear infinite;
+}
+
+@keyframes grid-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-56px, -56px);
+  }
+}
+
+/* Scanline shimmer (subtle “live signal” feel) */
+.scan-line {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.02) 2px,
+    rgba(255, 255, 255, 0.02) 4px
+  );
+  animation: scan-move 14s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent, black 40%, transparent);
+}
+
+@keyframes scan-move {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Shimmer for skeleton loaders */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-shimmer {
+  @apply relative overflow-hidden;
+}
+.skeleton-shimmer::after {
+  content: '';
+  @apply absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+/* Respect reduced motion: tone down site-wide motion + hero video */
+@media (prefers-reduced-motion: reduce) {
+  .bg-mesh-live,
+  .bg-grid-drift,
+  .scan-line {
+    animation: none !important;
+  }
+  .bg-mesh-live {
+    background-position: 50% 50%;
+  }
+  .video-bg {
+    display: none !important;
+  }
+}

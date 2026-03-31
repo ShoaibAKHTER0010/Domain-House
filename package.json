@@ -1,0 +1,11 @@
+{
+  "name": "domain-house",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n server,client -c cyan,magenta \"node server/index.js\" \"npm run dev --prefix client\"",
+    "install:all": "npm install --prefix client && npm install --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
