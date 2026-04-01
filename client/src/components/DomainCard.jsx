@@ -1,10 +1,22 @@
 import { motion } from 'framer-motion'
 
+function formatUsd(n) {
+  const x = Number(n)
+  if (!Number.isFinite(x)) return '—'
+  return Math.abs(x % 1) < 0.001 ? String(Math.round(x)) : x.toFixed(2)
+}
+
 /**
  * Glass domain card with hover scale + glow border.
+ * `price` = 50% off (what you pay); `referencePrice` optional — else derived as 2× offer.
  */
 export function DomainCard({ domain, index, onBuy }) {
-  const { name, price, tagline } = domain
+  const { name, price, tagline, referencePrice: refFromData } = domain
+  const offer = Number(price)
+  const reference =
+    refFromData != null && Number.isFinite(Number(refFromData))
+      ? Number(refFromData)
+      : Math.round(offer * 2 * 100) / 100
 
   return (
     <motion.article
@@ -32,12 +44,26 @@ export function DomainCard({ domain, index, onBuy }) {
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-white/60">{tagline}</p>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
+          <div className="min-w-0">
             <p className="text-xs font-medium uppercase tracking-wider text-white/40">
-              One-time
+              Pricing
             </p>
-            <p className="font-[Poppins] text-2xl font-bold text-orange-400">
-              ${price}
+            <p className="mt-1 text-sm text-white/50">
+              <span className="text-white/45">Ref. </span>
+              <span
+                className="text-white/55 line-through decoration-white/30"
+                title="Registrar-style benchmark (before 50% off)"
+              >
+                ${formatUsd(reference)}
+              </span>
+            </p>
+            <p className="mt-1 flex flex-wrap items-baseline gap-2">
+              <span className="font-[Poppins] text-2xl font-bold text-orange-400">
+                ${formatUsd(offer)}
+              </span>
+              <span className="rounded-md bg-orange-500/15 px-2 py-0.5 text-xs font-semibold text-orange-300/95">
+                50% off
+              </span>
             </p>
           </div>
           <motion.button

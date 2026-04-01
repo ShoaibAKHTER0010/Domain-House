@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-/** Abstract tech / “AI infrastructure” loop — Mixkit free license; swap URL anytime. */
-const HERO_VIDEO_SRC =
-  'https://assets.mixkit.co/videos/preview/mixkit-connected-dots-technology-abstract-background-27402-large.mp4'
+/** Local file from `public/Office_Video_Generation.mp4` (served at site root). */
+const HERO_VIDEO_SRC = '/Office_Video_Generation.mp4'
 
 const trust = ['Secure checkout', 'Fast transfer help', 'Human support']
 

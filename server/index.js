@@ -2,6 +2,7 @@
  * Domain House API — Express server with CORS and room to grow (admin routes).
  */
 const path = require('path')
+require('dotenv').config({ path: path.join(__dirname, '.env') })
 const fs = require('fs')
 const express = require('express')
 const cors = require('cors')

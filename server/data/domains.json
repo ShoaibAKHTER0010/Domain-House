@@ -2,36 +2,42 @@
   {
     "id": "1",
     "name": "voltstack.io",
+    "referencePrice": 98,
     "price": 49,
     "tagline": "Energy meets SaaS — crisp, memorable, ready to scale."
   },
   {
     "id": "2",
     "name": "nimbusforge.com",
+    "referencePrice": 158,
     "price": 79,
     "tagline": "Cloud-native brand energy with a premium studio feel."
   },
   {
     "id": "3",
     "name": "pixelrift.dev",
+    "referencePrice": 78,
     "price": 39,
     "tagline": "Developer-first vibe — modern, bold, and instantly credible."
   },
   {
     "id": "4",
     "name": "orbitlane.ai",
+    "referencePrice": 258,
     "price": 129,
     "tagline": "AI-forward naming that feels fast, smart, and trustworthy."
   },
   {
     "id": "5",
     "name": "fluxhaven.co",
+    "referencePrice": 118,
     "price": 59,
     "tagline": "Smooth motion and calm confidence — perfect for product teams."
   },
   {
     "id": "6",
     "name": "stellarloom.io",
+    "referencePrice": 138,
     "price": 69,
     "tagline": "Crafted for startups that want a premium first impression."
   }

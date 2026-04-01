@@ -7,7 +7,7 @@ export function DomainSearchInsight({ result, loading, error, onBuy }) {
   if (loading) {
     return (
       <div className="mx-auto mt-6 max-w-xl rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-center text-sm text-white/50 backdrop-blur-sm">
-        Checking global registry (same availability Hostinger/Wix would use)…
+        Checking domain availability (API Ninjas when configured, else public registry)…
       </div>
     )
   }
@@ -33,8 +33,14 @@ export function DomainSearchInsight({ result, loading, error, onBuy }) {
       >
         <p className="text-sm font-medium text-white/90">{result.domain}</p>
         <p className="mt-1 text-sm text-white/55">
-          This name appears <span className="text-white/80">already registered</span> in the
-          public registry. Try another name or TLD.
+          This name appears <span className="text-white/80">already registered</span>
+          {result.registrar ? (
+            <>
+              {' '}
+              <span className="text-white/65">(registrar: {result.registrar})</span>
+            </>
+          ) : null}
+          . Try another name or TLD.
         </p>
       </motion.div>
     )
@@ -45,6 +51,7 @@ export function DomainSearchInsight({ result, loading, error, onBuy }) {
       id: `search-${result.domain}`,
       name: result.domain,
       price: result.offerPriceUsd,
+      referencePrice: result.referencePriceUsd,
       tagline: `Appears free in registry (so it’s sellable like on Hostinger/Wix) · 50% off our registrar-style ref. $${result.referencePriceUsd}`,
     }
 
@@ -55,7 +62,9 @@ export function DomainSearchInsight({ result, loading, error, onBuy }) {
         className="mx-auto mt-6 max-w-xl overflow-hidden rounded-2xl border border-orange-500/40 bg-linear-to-br from-orange-500/15 to-transparent p-5 shadow-glow backdrop-blur-md"
       >
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-orange-300">
-          Registry: available · 50% off Hostinger/Wix-style ref.
+          {result.source === 'api_ninjas'
+            ? 'API Ninjas: available · 50% off Hostinger/Wix-style ref.'
+            : 'Registry: available · 50% off Hostinger/Wix-style ref.'}
         </p>
         <p className="mt-2 text-center font-[Poppins] text-xl font-bold text-white">
           {result.domain}
